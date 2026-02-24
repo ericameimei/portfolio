@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erica Meimei — Oil Pastel Artist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1714;
+    --warm-gray: #9e9590;
+    --rust: #c4603a;
+    --light-rule: #e0d9cf;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Karla', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    background: var(--cream);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-color: var(--light-rule); }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--warm-gray);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* hamburger */
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .nav-toggle span { display: block; width: 22px; height: 1px; background: var(--ink); transition: transform 0.3s, opacity 0.3s; }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--light-rule);
+    padding: 1.5rem 2.5rem;
+    z-index: 99;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: 0.6rem 0; text-decoration: none; color: var(--ink); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--light-rule); }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 60px;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 5rem 2.5rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--warm-gray);
+    max-width: 380px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.75rem;
+    font-family: var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .btn-primary:hover { background: var(--rust); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #d4c9b5 0%, #bfb09a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-image-placeholder span {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: #8a7d6c;
+    letter-spacing: 0.1em;
+    font-style: italic;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2.5rem; }
+
+  .section-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--rust);
+    margin-bottom: 1.25rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--rust); }
+
+  /* ── WORK ── */
+  #work { background: white; }
+
+  .work-header {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .gallery {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 4/5;
+    background: #e8e2d9;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-item:hover img { transform: scale(1.04); }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(26,23,20,0.85));
+    color: white;
+    padding: 2rem 1.25rem 1.25rem;
+    transform: translateY(100%);
+    transition: transform 0.35s ease;
+  }
+
+  .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+  .gallery-caption .title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .gallery-caption .meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .work-footer {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    text-align: center;
+  }
+
+  /* ── PRESS ── */
+  #press { background: var(--cream); }
+  .press-inner { max-width: 900px; margin: 0 auto; }
+
+  .press-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .press-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .press-badge {
+    display: inline-block;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rust);
+    padding-bottom: 2px;
+  }
+
+  .press-link {
+    font-size: 0.82rem;
+    color: var(--warm-gray);
+    text-decoration: none;
+    max-width: 320px;
+    line-height: 1.55;
+    transition: color 0.2s;
+  }
+  .press-link:hover { color: var(--rust); }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .about-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-image {
+    aspect-ratio: 3/4;
+    background: #2e2a26;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .about-image-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-text .section-eyebrow { color: var(--rust); }
+
+  .about-text .section-title { color: var(--cream); }
+  .about-text .section-rule { background: var(--rust); }
+
+  .about-body {
+    color: #b5aea5;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+
+  /* community block */
+  .community-block {
+    border: 1px solid #3a3530;
+    padding: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .community-block h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+
+  .community-block p {
+    font-size: 0.88rem;
+    color: #857e77;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-community {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: transparent;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+    transition: all 0.25s;
+  }
+  .btn-community:hover { background: var(--rust); color: var(--cream); }
+
+  /* ── CONTACT ── */
+  #contact { background: white; }
+
+  .contact-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-inner .section-rule { margin: 0 auto 1.25rem; }
+
+  .contact-email {
+    display: block;
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    margin: 1.5rem 0;
+    transition: color 0.2s;
+  }
+  .contact-email:hover { color: var(--rust); }
+
+  .contact-desc {
+    font-size: 0.88rem;
+    color: var(--warm-gray);
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .social-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--warm-gray);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .social-links a:hover { color: var(--rust); border-color: var(--rust); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: #4a4540;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  footer a { color: #4a4540; text-decoration: none; }
+  footer a:hover { color: var(--warm-gray); }
+
+  /* ── FADE IN ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-image { height: 50vw; min-height: 280px; }
+    .hero-text { padding: 4rem 2rem 3rem; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-image { aspect-ratio: 16/9; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    section { padding: 4rem 1.25rem; }
+    .gallery { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .press-logo-row { flex-direction: column; gap: 2rem; }
+    .hero-text { padding: 3rem 1.25rem 2.5rem; }
+    .hero-image { height: 60vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Erica Meimei</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#press">Press</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#work" onclick="closeMobile()">Work</a>
+  <a href="#press" onclick="closeMobile()">Press</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow fade-up">Oil Pastel Artist &amp; Community Builder</p>
+    <h1 class="hero-title fade-up" style="transition-delay:0.1s">
+      Art that moves<br><em>through memory.</em>
+    </h1>
+    <p class="hero-desc fade-up" style="transition-delay:0.2s">
+      Boston-based artist working in oil pastels and paint. Exploring movement, humor, and the emotional texture of everyday life.
+    </p>
+    <div class="btn-group fade-up" style="transition-delay:0.3s">
+      <a href="#work" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-outline">Commissions</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <!-- Replace src with your portrait/hero image -->
+    <div class="hero-image-placeholder">
+      <span>Your image here</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header fade-up">
+    <div>
+      <div class="section-rule"></div>
+      <p class="section-eyebrow">Selected Works</p>
+      <h2 class="section-title">Featured <em>Portfolio</em></h2>
+    </div>
+    <p style="color:var(--warm-gray); font-size:0.85rem; max-width:320px; line-height:1.7;">
+      Oil pastel and mixed media pieces exploring movement, memory, and playful storytelling.
+    </p>
+  </div>
+
+  <div class="gallery">
+    <!-- Replace src attributes with your actual artwork images -->
+    <div class="gallery-item fade-up">
+      <img src="https://erica-meimei.carrd.co/assets/images/gallery01/1957abde.jpg" alt="Echoes of the Lion Dance" loading="lazy">
+      <div class="gallery-caption">
+        <span class="title">Echoes of the Lion Dance</span>
+        <span class="meta">Oil Pastel · 2026</span>
+      </div>
+    </div>
+    <div class="gallery-item fade-up" style="transition-delay:0.1s">
+      <img src="https://erica-meimei.carrd.co/assets/images/gallery01/4168fce8.jpg" alt="Northeastern Lights" loading="lazy">
+      <div class="gallery-caption">
+        <span class="title">Northeastern Lights</span>
+        <span class="meta">Oil Pastel · 2025</span>
+      </div>
+    </div>
+    <div class="gallery-item fade-up" style="transition-delay:0.2s">
+      <img src="https://erica-meimei.carrd.co/assets/images/gallery01/57b13282.jpg" alt="Parts Unknown II" loading="lazy">
+      <div class="gallery-caption">
+        <span class="title">Parts Unknown II</span>
+        <span class="meta">Oil Paint · 2025</span>
+      </div>
+    </div>
+    <div class="gallery-item fade-up" style="transition-delay:0.3s">
+      <img src="https://erica-meimei.carrd.co/assets/images/gallery01/456154ac.jpg" alt="Map of the World" loading="lazy">
+      <div class="gallery-caption">
+        <span class="title">Map of the World</span>
+        <span class="meta">Mixed Media · 2020</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="work-footer fade-up">
+    <p style="font-size:0.82rem; color:var(--warm-gray); margin-bottom:1.25rem;">
+      Interested in a commission or seeing more work?
+    </p>
+    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section id="press">
+  <div class="press-inner">
+    <div class="section-rule fade-up"></div>
+    <p class="section-eyebrow fade-up">Recognition</p>
+    <h2 class="section-title fade-up">As Seen <em>On</em></h2>
+
+    <div class="press-logo-row fade-up">
+      <div class="press-item">
+        <span class="press-badge">WCVB Channel 5 Boston</span>
+        <a href="https://www.wcvb.com/article/salem-massachusetts-painter-amesbury-dog-rescue-fundraiser/60801872"
+           target="_blank" rel="noopener" class="press-link">
+          5 for Good: Salem, MA painter raises thousands for Amesbury dog rescue →
+        </a>
+      </div>
+      <!-- Add more press items here as needed -->
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image fade-up">
+      <!-- Replace with your photo -->
+      <div class="about-image-placeholder">
+        <span style="font-family:var(--serif); color:#4a4540; font-style:italic;">Your photo here</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-rule"></div>
+      <p class="section-eyebrow fade-up">About</p>
+      <h2 class="section-title fade-up">Massachusetts-based <em>artist &amp; community leader.</em></h2>
+      <p class="about-body fade-up">
+        I work primarily in oil pastels and paint, with a practice centered around movement, humor, and storytelling—often inspired by animals, everyday moments, and the emotional texture of memory.
+      </p>
+      <p class="about-body fade-up">
+        Alongside my personal practice, I build creative spaces that make art feel accessible, social, and fun rather than intimidating or precious.
+      </p>
+      <a href="mailto:hello@ericameimei.com" class="btn btn-outline fade-up" style="border-color:#3a3530; color:var(--cream);">
+        View CV
+      </a>
+
+      <div class="community-block fade-up">
+        <h3>Art Block Community</h3>
+        <p>A creative community for people who want to make art without pressure, perfectionism, or gatekeeping. For curious beginners and anyone craving more play in their creative life.</p>
+        <a href="https://artblockcreative.com/" target="_blank" rel="noopener" class="btn-community">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-rule"></div>
+    <p class="section-eyebrow fade-up">Let's Work Together</p>
+    <h2 class="section-title fade-up">Commissions, <em>exhibitions,</em><br>events &amp; collaborations.</h2>
+    <p class="contact-desc fade-up">
+      Whether you're looking for a custom piece, want to exhibit my work, or have a community event in mind — I'd love to hear from you.
+    </p>
+    <a href="mailto:hello@ericameimei.com" class="contact-email fade-up">
+      hello@ericameimei.com
+    </a>
+    <div class="social-links fade-up">
+      <a href="https://instagram.com/ericas_studio" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://artblockcreative.com/" target="_blank" rel="noopener">Art Block</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Erica Meimei &nbsp;·&nbsp; Boston, MA &nbsp;·&nbsp; All rights reserved</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Trigger hero elements immediately
+  setTimeout(() => {
+    document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+  }, 100);
+
+  // Nav shadow on scroll
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Mobile menu
+  const toggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMobile() {
+    toggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+</script>
+</body>
+</html>
